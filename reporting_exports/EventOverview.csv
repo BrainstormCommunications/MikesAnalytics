@@ -1,0 +1,26 @@
+event_name,number_of_events,number_of_users
+FolioUpgrade,1480,154
+TabAssets,4365,864
+ShowActivity,739,138
+ShowInfoCard,6433,626
+EditNote,57,23
+ShowFolioSubject,9220,723
+ShowFolio,9576,1149
+TabSearch,234,65
+ShowNote,238,33
+TabHome,4780,879
+TabMore,2644,811
+TabBriefcase,2015,686
+Session,12149,1205
+ShowDashboard,15258,1388
+Logout,473,353
+User Authenticated,473,353
+SaveNote,174,61
+ShowTips,1727,1425
+ShowAsset,1507,310
+DeleteNote,145,24
+FolioItemChanged,63280,722
+FolioDownload,5205,1221
+CreateNote,157,79
+ShowAllTips,211,134
+ViewingFolioSubject,231,98

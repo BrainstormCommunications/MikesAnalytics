@@ -1,0 +1,4 @@
+app_old/
+settings/secrets.xml
+app/datasrc/
+reporting/exports/*.csv
