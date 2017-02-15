@@ -27,7 +27,7 @@ WITH
                 public.mixpanel_event me  
             WHERE 
                 me.content_data ->> 'event' = 'Session'
-                AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+                AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
             GROUP BY 1
             )
         
@@ -49,7 +49,7 @@ WITH
             public.mixpanel_event me  
         WHERE 
             me.content_data ->> 'event' = 'Session'
-            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
         GROUP BY 1),
 
 -- This sub select gives us the number of individual users on a given day by using the distinct id
@@ -63,7 +63,7 @@ WITH
                 public.mixpanel_event me  
             WHERE 
                 me.content_data ->> 'event' = 'Session'
-                AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+                AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
         )   
         
         SELECT 
@@ -88,7 +88,7 @@ WITH
             JOIN app_asset apa ON  me.content_data -> 'properties' ->> 'AssetId' = apa.content_data ->> '_id'
         WHERE 
             me.content_data ->> 'event' = 'ShowAsset'
-            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
             AND apa.content_data ->> 'type' = 'VIDEO'
         GROUP BY 1
         ),
@@ -106,7 +106,7 @@ WITH
         
         WHERE 
             me.content_data ->> 'event' = 'FolioDownload'
-            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
         GROUP BY 1
         ),
 
@@ -123,7 +123,7 @@ WITH
         
         WHERE 
             me.content_data ->> 'event' = 'ShowFolio'
-            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+            AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
         GROUP BY 1
         )
 -- Assemble all of the data into the report
@@ -159,7 +159,7 @@ WITH distinct_user_events AS (
             me.content_data -> 'properties' ->> 'distinct_id'
          FROM 
                 public.mixpanel_event me
-        WHERE me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%')
+        WHERE me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%')
 
     SELECT event_name, COUNT(*) AS users FROM user_pairings GROUP BY 1)
 
@@ -170,7 +170,7 @@ SELECT
 FROM
     public.mixpanel_event me
     JOIN distinct_user_events due ON me.content_data ->> 'event' = due.event_name
-WHERE me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+WHERE me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
 GROUP BY 1,3)  TO '{REPORTING_DESTINATION}EventOverview.csv' CSV DELIMITER ',' HEADER;
 """
 
@@ -186,7 +186,7 @@ FROM
     JOIN app_asset apa ON  me.content_data -> 'properties' ->> 'AssetId' = apa.content_data ->> '_id'
 WHERE 
     me.content_data ->> 'event' = 'ShowAsset'
-    AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+    AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
     AND apa.content_data ->> 'type' = 'VIDEO'
 GROUP BY 1,2,3
 UNION ALL
@@ -200,7 +200,7 @@ FROM
     JOIN app_folio afo ON  me.content_data -> 'properties' ->> 'FolioId' = afo.content_data ->> '_id'
 WHERE 
     me.content_data ->> 'event' = 'ShowFolio'
-    AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%-%'
+    AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
 GROUP BY 1,2,3
 ORDER BY 1,4 DESC)  TO '{REPORTING_DESTINATION}MediaInteraction.csv' CSV DELIMITER ',' HEADER;
 """

@@ -2,3 +2,4 @@ app_old/
 settings/secrets.xml
 app/datasrc/
 reporting/exports/*.csv
+app/reporting_app/support/__pycache__/

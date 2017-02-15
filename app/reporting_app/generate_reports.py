@@ -20,6 +20,5 @@ SQL_QUERIES = [
     sql.EVENT_OVERVIEW_SQL,
     sql.MEDIA_INTERACTION_SQL,
 ]
-
 for query in SQL_QUERIES:
     cur.execute(query.format(**settings_dict))
