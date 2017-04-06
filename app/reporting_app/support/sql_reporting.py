@@ -1,3 +1,18 @@
+TOPIC_SQL = """
+COPY(
+SELECT 
+me.content_data ->> 'event' :: text AS event_name,
+appfs.content_data ->> 'title' :: text AS subject_name,
+appfs.content_data ->> '_id' :: text AS subject_id,
+COUNT(*) AS total_number_of_events
+FROM mixpanel_event me
+FULL OUTER JOIN app_foliosubject appfs ON me.content_data -> 'properties' ->> 'subject' = appfs.content_data ->> '_id'
+WHERE me.content_data -> 'properties' -> 'subject' IS NOT NULL 
+AND me.content_data ->> 'event' <> 'Subject'
+AND me.content_data -> 'properties' ->> 'distinct_id' NOT LIKE '%%-%%'
+GROUP BY 1,2,3
+ORDER BY 4 DESC)  TO '{REPORTING_DESTINATION}SubjectViews.csv' CSV DELIMITER ',' HEADER;"""
+
 CORE_REPORT_SQL = """
 COPY(
 /*
