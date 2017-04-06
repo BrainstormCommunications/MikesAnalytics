@@ -1,5 +1,8 @@
 app_old/
 settings/secrets.xml
 app/datasrc/
-reporting/exports/*.csv
+reporting_exports/
 app/reporting_app/support/__pycache__/
+.gitignore
+*pyc
+*.csv
