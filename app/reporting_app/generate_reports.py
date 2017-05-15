@@ -19,6 +19,8 @@ SQL_QUERIES = [
     sql.CORE_REPORT_SQL,
     sql.EVENT_OVERVIEW_SQL,
     sql.MEDIA_INTERACTION_SQL,
+    sql.TOPIC_SQL,
 ]
 for query in SQL_QUERIES:
+	print(query)
     cur.execute(query.format(**settings_dict))
